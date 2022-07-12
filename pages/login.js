@@ -23,11 +23,10 @@ function Login({ providers }) {
 
 // This gets called on every request
 export async function getServerSideProps() {
-    // const providers = await getProviders()
+    const providers = await getProviders()
   
     // Pass data to the page via props
-    // return { props: { providers }}
-    return { props: { providers: {} } }
+    return { props: { providers }}
   }
   
   export default Login
