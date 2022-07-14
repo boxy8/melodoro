@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { signOut } from 'next-auth/react'
+import MusicTimer from '../components/MusicTimer'
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
             Logout
           </button>
         </div>
+        <MusicTimer />
       </main>
 
       <footer className={styles.footer}>

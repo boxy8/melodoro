@@ -41,7 +41,7 @@ export default NextAuth({
   callbacks: {
     async jwt({ token, account, user }) {
 
-      // initial sign in 
+      // (account and user only passed in on) initial sign in 
       if (account && user) {
         return {
           ...token,
