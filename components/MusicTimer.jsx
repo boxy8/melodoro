@@ -1,17 +1,21 @@
-import React, { useState, useEffect } from 'react';
 import useSpotify from '../hooks/useSpotify';
-
+import { useTimer } from '../hooks/useTimer';
+import { useEffect, useState } from 'react';
+import Timer from '../components/Timer';
 
 function MusicTimer() {
-    console.log("so this is rendering i guesS?");
     const spotifyApi = useSpotify();
-    let onPlay;    // this is bad probs shuld i make it a state??? but not necessary because it's only read after we set it ?? doesn't need to persist between renders
+    const [isActive, setIsActive] = useState(false);   
+
+    useEffect(() => {
+        toggleMusic(spotifyApi);    // k problem is there is now noticeable delay...
+    }, [isActive])
 
     return (
         <>
             <div className="container">
                 <div className="main-wrapper">
-
+                    <Timer isActive={isActive} duration={1} setIsActive={setIsActive}/>
                     <div className="now-playing__side">
 
                         <button className="btn-spotify" onClick={() => { 
@@ -28,37 +32,11 @@ function MusicTimer() {
                         </button>
 
                         <button className="btn-spotify" onClick={() => {
-                            // check if currently play or pause
-                            spotifyApi.getMyCurrentPlaybackState()
-                                .then(function (data) {
-                                    // Output items
-                                    if (data.body && data.body.is_playing) {
-                                        // we want to pause
-                                        onPlay = false;
-                                        spotifyApi.pause()
-                                            .then(function () {
-                                                console.log('Playback paused');
-                                            }, function (err) {
-                                                //if the user making the request is non-premium, a 403 FORBIDDEN response code will be returned
-                                                console.log('Something went wrong!', err);
-                                            });
-                                    } else {
-                                        // we want to play
-                                        onPlay = true;
-                                        spotifyApi.play()
-                                            .then(function () {
-                                                console.log('Playback started');
-                                            }, function (err) {
-                                                //if the user making the request is non-premium, a 403 FORBIDDEN response code will be returned
-                                                console.log('Something went wrong!', err);
-                                            });
-                                    }
-                                }, function (err) {
-                                    console.log('Something went wrong!', err);
-                                });
-                            
+                            // remember please that it is not being called on render... it calls on click...
+                            // logic to toggle isActive. music playback being toggled after render.
+                            setIsActive(prevIsActive => !prevIsActive);
                          }} >
-                            { onPlay ? "PAUSE" : "PLAY" }
+                            { isActive ? "PAUSE" : "PLAY" }
                         </button>
 
                         <button className="btn-spotify" onClick={() => { 
@@ -79,4 +57,33 @@ function MusicTimer() {
     );
 }
 
-export default MusicTimer
+function toggleMusic(spotifyApi) {
+        // check if currently play or pause
+        spotifyApi.getMyCurrentPlaybackState()
+            .then(function (data) {
+                // Output items
+                if (data.body && data.body.is_playing) {
+                    // we want to pause
+                    spotifyApi.pause()
+                        .then(function () {
+                            console.log('Playback paused');
+                        }, function (err) {
+                            //if the user making the request is non-premium, a 403 FORBIDDEN response code will be returned
+                            console.log('Something went wrong!', err);
+                        });
+                } else {
+                    // we want to play
+                    spotifyApi.play()
+                        .then(function () {
+                            console.log('Playback started');
+                        }, function (err) {
+                            //if the user making the request is non-premium, a 403 FORBIDDEN response code will be returned
+                            console.log('Something went wrong!', err);
+                        });
+                }
+            }, function (err) {
+                console.log('Something went wrong!', err);
+            });
+}
+
+export default MusicTimer;
