@@ -29,6 +29,8 @@ function MusicTimer() {
     }
 
     function syncMusic(timerStatus) {
+        console.log("called syncMusic with");
+        console.log(spotifyApi);
         spotifyApi.getMyCurrentPlaybackState()
             .then(function (data) {
                 if (data.body && data.body.is_playing) {
@@ -60,8 +62,8 @@ function MusicTimer() {
             switchMode();
         } else {
             setTimerValue(endTimestamp - Date.now());
+            timeout.current = setTimeout(updateTimer, 500);
         }
-        timeout.current = setTimeout(updateTimer, 500);
     }
 
     function switchMode() {
