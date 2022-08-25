@@ -1,6 +1,7 @@
 import useSpotify from '../hooks/useSpotify';
-import { useRef, useState } from 'react';
-import Timer from '../components/Timer';
+import PlayButton from './PlayButton';
+import PauseButton from './PauseButton';
+import { useEffect, useRef, useState } from 'react';
 
 function MusicTimer() {
     // unit: minutes
@@ -22,18 +23,9 @@ function MusicTimer() {
     }
 
     function pause() {
-        clearTimeout(timeout);
+        clearTimeout(timeout.current);
         setIsRunning(false);
         syncMusic('pause');
-    }
-
-    function switchMode() {
-        pause();
-        const nextMode = mode === 'work' ? 'break' : 'work';
-        const nextTimerValue = (nextMode === 'work' ? duration.work : duration.break) * 60 * 1000;
-
-        setMode(nextMode);
-        setTimerValue(nextTimerValue);
     }
 
     function syncMusic(timerStatus) {
@@ -63,15 +55,29 @@ function MusicTimer() {
             });
     }
 
-    if (isRunning) {
-        timeout.current = setTimeout(() => {
-            if (endTimestamp - Date.now() <= 0) {
-                switchMode();
-            } else {
-                setTimerValue(endTimestamp - Date.now());
-            }
-        }, 500);
+    function updateTimer() {
+        if (endTimestamp - Date.now() <= 0) {
+            switchMode();
+        } else {
+            setTimerValue(endTimestamp - Date.now());
+        }
+        timeout.current = setTimeout(updateTimer, 500);
     }
+
+    function switchMode() {
+        pause();
+        const nextMode = mode === 'work' ? 'break' : 'work';
+        const nextTimerValue = (nextMode === 'work' ? duration.work : duration.break) * 60 * 1000;
+
+        setMode(nextMode);
+        setTimerValue(nextTimerValue);
+    }
+
+    useEffect(() => {
+        if (isRunning) {
+            updateTimer();
+        }
+    }, [endTimestamp]);
 
     const [hrs, mins, secs] = getReturnValues(timerValue);
 
@@ -106,8 +112,8 @@ function MusicTimer() {
                         </button>
 
                          {isRunning 
-                            ? <button className="btn-spotify" onClick={pause}>PAUSE</button>
-                            : <button className="btn-spotify" onClick={resume}>PLAY</button>
+                            ? <PauseButton onClick={pause} />
+                            : <PlayButton onClick={resume} />
                          }
 
                         <button className="btn-spotify" onClick={() => { 
