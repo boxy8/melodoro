@@ -10,7 +10,7 @@ import { useEffect, useRef, useState } from 'react';
 function MusicTimer() {
     // unit: minutes
     const duration = {
-        'work': 25,
+        'work': 1,
         'break': 5
     };
     const spotifyApi = useSpotify();
@@ -80,15 +80,6 @@ function MusicTimer() {
             });
     }
 
-    function updateTimer() {
-        if (endTimestamp - Date.now() <= 0) {
-            switchMode();
-        } else {
-            setTimerValue(endTimestamp - Date.now());
-            timeout.current = setTimeout(updateTimer, 500);
-        }
-    }
-
     function switchMode() {
         pause();
         const nextMode = mode === 'work' ? 'break' : 'work';
@@ -99,10 +90,19 @@ function MusicTimer() {
     }
 
     useEffect(() => {
+        function updateTimer() {
+            if (endTimestamp - Date.now() <= 0) {
+                switchMode();
+            } else {
+                setTimerValue(endTimestamp - Date.now());
+                timeout.current = setTimeout(updateTimer, 500);
+            }
+        }
+
         if (isRunning) {
             updateTimer();
         }
-    }, [endTimestamp]);
+    }, [isRunning]);
 
     let [hrs, mins, secs] = getReturnValues(timerValue);
     if (mins < 10) mins = '0' + mins;
