@@ -1,17 +1,23 @@
 # melodoro
 
-melodoro is a Pomodoro timer that connects with your Spotify! Instead of interrupting you with an alarm, melodoro stops and starts your music to let you know when it's time for a break/work interval.
+melodoro is a Pomodoro timer that connects with your Spotify! Instead of interrupting you with an alarm, melodoro stops and starts your music to let you know when time's up for a work/break interval.
 
 # Demo
 
 ## Login page
-<img width="1000" alt="login page" src="https://user-images.githubusercontent.com/72005958/187130638-655b1f49-604c-4bf5-b707-20375eb25c1b.png">
+<p align="center">
+  <img width="750" alt="Screen Shot 2022-08-29 at 7 28 44 PM" src="https://user-images.githubusercontent.com/72005958/187148065-ce669d36-4c0d-42f7-875b-9a599d493156.png">
+</p>
 
 ## Logging in with Spotify
-<img width="1000" alt="login with spotify" src="https://user-images.githubusercontent.com/72005958/187139002-329e13eb-5349-4b13-8ab7-c7ba2cb22861.png">
+<p align="center">
+  <img width="750" alt="Screen Shot 2022-08-29 at 7 29 00 PM" src="https://user-images.githubusercontent.com/72005958/187148081-d07557d9-e134-46ad-8faa-37c5dff921b0.png">
+</p>
 
-# Pomodoro timer
-<img width="1000" alt="pomodoro timer" src="https://user-images.githubusercontent.com/72005958/187130649-0097803c-cdcb-4f4f-8a77-22e1cdc45dde.png">
+## Pomodoro timer
+<p align="center">
+  <img width="750" alt="Screen Shot 2022-08-29 at 7 29 57 PM" src="https://user-images.githubusercontent.com/72005958/187148091-3772e8f8-cd1e-443b-8849-a29ff59a9965.png">
+</p>
 
 # Technologies
 - Next.js
