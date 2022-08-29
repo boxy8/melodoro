@@ -16,6 +16,6 @@ export async function middleware(req) {
 }
 
 export const config = {
-    matcher: ['/pages/:path*', '/'], // is this even right for index lol
+    matcher: ['/pages/:path*', '/'],
 }
 
