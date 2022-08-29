@@ -5,12 +5,12 @@ import SkipBackButton from './SkipBackButton';
 import SkipForwardButton from './SkipForwardButton';
 import ProgressCircle from './ProgressCircle';
 import 'react-circular-progressbar/dist/styles.css';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 function MusicTimer() {
     // unit: minutes
     const duration = {
-        'work': 1,
+        'work': 25,
         'break': 5
     };
     const spotifyApi = useSpotify();
@@ -60,7 +60,6 @@ function MusicTimer() {
                     if (timerStatus == 'pause') {
                         spotifyApi.pause()
                         .then(function () {
-                            console.log('Playback paused');
                         }, function (err) {
                             //if the user making the request is non-premium, a 403 FORBIDDEN response code will be returned
                             console.log('Something went wrong!', err);
@@ -70,7 +69,6 @@ function MusicTimer() {
                     if (timerStatus == 'play') {
                         spotifyApi.play()
                         .then(function () {
-                            console.log('Playback started');
                         }, function (err) {
                             //if the user making the request is non-premium, a 403 FORBIDDEN response code will be returned
                             console.log('Something went wrong!', err);
