@@ -38,7 +38,6 @@ function MusicTimer() {
                 console.log('Skip to previous');
             }, function (err) {
                 //if the user making the request is non-premium, a 403 FORBIDDEN response code will be returned
-                // ^^bruh wtf scopes say u dont need premium for this tho
                 console.log('Something went wrong!', err);
             });
     }

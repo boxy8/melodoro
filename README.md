@@ -1,34 +1,9 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## melodoro
 
-## Getting Started
+melodoro is a pomodoro timer that connects with your Spotify. Instead of being interrupted by an alarm when it's time for a work/break interval, melodoro stops and starts your music to let you know. 
 
-First, run the development server:
+## Demo
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+<img width="1440" alt="Screen Shot 2022-08-29 at 5 14 24 PM" src="https://user-images.githubusercontent.com/72005958/187130638-655b1f49-604c-4bf5-b707-20375eb25c1b.png">
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<img width="1440" alt="Screen Shot 2022-08-29 at 5 14 57 PM" src="https://user-images.githubusercontent.com/72005958/187130649-0097803c-cdcb-4f4f-8a77-22e1cdc45dde.png">
