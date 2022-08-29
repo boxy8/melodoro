@@ -16,13 +16,13 @@ function MusicTimer() {
     const spotifyApi = useSpotify();
     const [isRunning, setIsRunning] = useState(false);
     const [timerValue, setTimerValue] = useState(duration.work * 60 * 1000);
-    const [mode, setMode] = useState('work'); // work / break
-    const [endTimestamp, setEndTimestamp] = useState(duration.work * 60 * 1000 + Date.now());  
+    const [mode, setMode] = useState('work'); // work / break 
     const timeout = useRef();
 
     function resume() {
+        const newTimestamp = timerValue + Date.now();
+        updateTimer(newTimestamp);
         setIsRunning(true)
-        setEndTimestamp(timerValue + Date.now());
         syncMusic('play');
     }
 
@@ -80,6 +80,15 @@ function MusicTimer() {
             });
     }
 
+    function updateTimer(timestamp) {
+        if (timestamp - Date.now() <= 0) {
+            switchMode();
+        } else {
+            setTimerValue(timestamp - Date.now());
+            timeout.current = setTimeout(() => {updateTimer(timestamp)}, 500);
+        }
+    }
+
     function switchMode() {
         pause();
         const nextMode = mode === 'work' ? 'break' : 'work';
@@ -88,21 +97,6 @@ function MusicTimer() {
         setMode(nextMode);
         setTimerValue(nextTimerValue);
     }
-
-    useEffect(() => {
-        function updateTimer() {
-            if (endTimestamp - Date.now() <= 0) {
-                switchMode();
-            } else {
-                setTimerValue(endTimestamp - Date.now());
-                timeout.current = setTimeout(updateTimer, 500);
-            }
-        }
-
-        if (isRunning) {
-            updateTimer();
-        }
-    }, [isRunning]);
 
     let [hrs, mins, secs] = getReturnValues(timerValue);
     if (mins < 10) mins = '0' + mins;
